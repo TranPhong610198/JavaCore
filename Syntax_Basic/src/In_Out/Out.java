@@ -16,5 +16,8 @@ public class Out {
         // we also add variables to this command :
         String str1="Hello ", str2="World !!!";
         System.out.printf("%s%s\n", str1, str2);
+        
+        // use "System.err" for print error line with red color
+        System.err.println(str1+str2);
     }
 }
