@@ -1,10 +1,16 @@
 // Print Day with Date given before
-// 5th August 2015 is WEDNESDAY
+// 1st January 1000 is WEDNESDAY
 package java_date_and_time;
 
 import java.util.*;
 
 public class Java_Date_and_Time {
+    
+    // check Validate
+    public static boolean validDate(int day, int month, int year){
+        if (day<0 || month<0 || month>12 || year < 0) return false;
+        return true;
+    }
 
     // check LeapYear
     public static boolean checkLeapYear(int year) {
@@ -34,6 +40,7 @@ public class Java_Date_and_Time {
                     return 28;
                 }
         }
+        return 0;
     }
 
     // count LeapYear
@@ -58,26 +65,51 @@ public class Java_Date_and_Time {
 
     // calculate numbers of day from rootDay to inputDay
     public static int calDays(int day, int month, int year) {
-        int result = 0;
-        if (year > 2015) {
-            result = (year - 2015 - countLeapYear(2015, year)) * 365 + countLeapYear(2015, year) * 366 + oderOfDate(day, month, year);
-        }
-        else{
-            result = (2015 - year - countLeapYear(2015, year)) * 365 + countLeapYear(year, 2015) * 366 + oderOfDate(day, month, year);
-        }
+        int result = (year - 1000 - countLeapYear(1000, year)) * 365 + countLeapYear(1000, year) * 366 + oderOfDate(day, month, year)-1;
         return result;
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Input Date Folow Type DD MM YY: ");
+        System.out.print("Input Date Folow Type DD MM YY (Year need greatter than 1000): ");
         int day = sc.nextInt();
         int month = sc.nextInt();
         int year = sc.nextInt();
+        
+        while (!validDate(day, month, year)){
+            System.err.print("Invalid Date, Input Again: ");
+            System.out.print("Input Date Folow Type DD MM YY (Year need greatter than 1000): ");
+            day = sc.nextInt();
+            month = sc.nextInt();
+            year = sc.nextInt();            
+        }
+        
+        
 
         int temp = calDays(day, month, year)%7;
-        if (year > 2015){
-            if (month >8)
+        int DayCode = (2 + temp) % 7;
+        switch (DayCode){
+            case 0:
+                System.out.println("MONDAY");
+                break;
+            case 1:
+                System.out.println("TUESDAY");
+                break;                
+            case 2:
+                System.out.println("WEDNESDAY");
+                break;                
+            case 3:
+                System.out.println("THIRDAY");
+                break;                
+            case 4:
+                System.out.println("FRIDAY");
+                break;                
+            case 5:
+                System.out.println("SATURDAY");
+                break;                
+            case 6:
+                System.out.println("SUNDAY");
+                break;                
+        }
         }
     }
-}
